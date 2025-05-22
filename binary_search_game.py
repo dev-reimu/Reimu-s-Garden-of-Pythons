@@ -2,7 +2,7 @@ import random
 
 choices = 8
 game_list = [ ]
-game_list_length = random.randrange(32, 128, 16)
+game_list_length = random.randrange(8, 32, 4)
 for i in range(game_list_length):
     n = random.randint(1, 256)
     while n in game_list:
@@ -16,25 +16,18 @@ def binary_search(array, n):
     mid = 0
     while low <= high:
         mid = (high + low) // 2
-        # If x is greater, ignore left half
-        if array[mid] < n:
-            low = mid + 1
-        # If x is smaller, ignore right half
-        elif array[mid] > n:
-            high = mid - 1
-        # means x is present at mid
-        else:
-            return mid
-    # If we reach here, then the element was not present
+        if array[mid] < n: low = mid + 1
+        elif array[mid] > n: high = mid - 1
+        else: return mid
     return -1
 
 number_user_must_find = random.choice(game_list)
 index_in_list_of_number_user_must_find = binary_search(game_list, number_user_must_find)
-print("DEBUG: INDEX TO BE FOUND IS " + str(index_in_list_of_number_user_must_find) + ".")
 
-print("The list contains " + str(game_list_length) + " elements.")
-print("Find the position index where number " + str(number_user_must_find) + " sits at.")
-print("You have " + str(choices) + " choices in total.")
+print("A sorted list of " + str(game_list_length) + " elements has been generated.")
+print("Use a \"Binary Search\" approach to find the position of number " + str(number_user_must_find) + ".")
+print("You have " + str(choices) + " choices in total. Running out of choices means you lose the game.")
+print("\nGood hunting, Stalker.")
 
 def end_game(state: False):
     if state: print("You win!")
