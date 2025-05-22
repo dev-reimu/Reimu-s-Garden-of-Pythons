@@ -1,0 +1,55 @@
+import random
+
+choices = 8
+game_list = [ ]
+game_list_length = random.randrange(32, 128, 16)
+for i in range(game_list_length):
+    n = random.randint(1, 256)
+    while n in game_list:
+        n = random.randint(1, 64)
+    game_list.append(n)
+game_list.sort()
+
+def binary_search(array, n):
+    low = array[0]
+    high = len(array) - 1
+    mid = 0
+    while low <= high:
+        mid = (high + low) // 2
+        # If x is greater, ignore left half
+        if array[mid] < n:
+            low = mid + 1
+        # If x is smaller, ignore right half
+        elif array[mid] > n:
+            high = mid - 1
+        # means x is present at mid
+        else:
+            return mid
+    # If we reach here, then the element was not present
+    return -1
+
+number_user_must_find = random.choice(game_list)
+index_in_list_of_number_user_must_find = binary_search(game_list, number_user_must_find)
+print("DEBUG: INDEX TO BE FOUND IS " + str(index_in_list_of_number_user_must_find) + ".")
+
+print("The list contains " + str(game_list_length) + " elements.")
+print("Find the position index where number " + str(number_user_must_find) + " sits at.")
+print("You have " + str(choices) + " choices in total.")
+
+def end_game(state: False):
+    if state: print("You win!")
+    else: print("You lose, as expected.")
+    exit()
+
+while choices > 0:
+    print()
+    choices -= 1
+    user_picked_index = int(input("Pick a position: "))
+    print()
+    print("Number at position " + str(user_picked_index) + " is " + str(game_list[user_picked_index]) + ".")
+    if user_picked_index is index_in_list_of_number_user_must_find:
+        end_game(True)
+    if choices > 1: print("You have " + str(choices) + " choices left.")
+    elif choices == 1: print(" - C a r e f u l   n o w . . .")
+    else: end_game(False)
+
