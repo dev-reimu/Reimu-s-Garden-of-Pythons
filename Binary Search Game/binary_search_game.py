@@ -11,8 +11,6 @@ def binary_search(array, n):
         else: return mid
     return -1
 
-choices = 8
-
 game_list = [ ]
 game_list_length = random.randrange(8, 32, 4)
 for i in range(game_list_length):
@@ -22,6 +20,7 @@ for i in range(game_list_length):
     game_list.append(n)
 game_list.sort()
 
+choices = 8
 find_number = random.choice(game_list)
 find_number_position = binary_search(game_list, find_number)
 
